@@ -9,7 +9,8 @@
     [d3-cljs.ajax :as ajax]
     [d3-cljs.events]
     [reitit.core :as reitit]
-    [clojure.string :as string])
+    [clojure.string :as string]
+    [d3-cljs.ch1 :as ch1])
   (:import goog.History))
 
 (defn nav-link [uri title page]
@@ -32,6 +33,7 @@
       {:class (when @expanded? :is-active)}
       [:div.navbar-start
        [nav-link "#/" "Home" :home]
+       [nav-link "#/ch1" "Ch1" :ch1]
        [nav-link "#/about" "About" :about]]]]))
 
 (defn about-page []
@@ -45,6 +47,7 @@
 
 (def pages
   {:home #'home-page
+   :ch1 #'ch1/main
    :about #'about-page})
 
 (defn page []
@@ -57,7 +60,9 @@
 
 (def router
   (reitit/router
-    [["/" :home]
+    [
+     ["/" :home]
+     ["/ch1" :ch1]
      ["/about" :about]]))
 
 ;; -------------------------
